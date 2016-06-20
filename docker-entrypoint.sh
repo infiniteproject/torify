@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-echo "HiddenServiceDir /var/lib/tor/$CONTAINER/" >> /etc/tor/torrc
+echo "HiddenServiceDir /var/lib/tor/$CONTAINER_NAME/" >> /etc/tor/torrc
 echo "HiddenServicePort $SERVICE_PORT $CONTAINER_NAME:$CONTAINER_PORT" >> /etc/tor/torrc
 
-tor
+/usr/bin/tor
