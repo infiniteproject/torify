@@ -10,7 +10,7 @@ RUN apt-get update && \
 RUN apt-get clean && \
     rm -fr /var/lib/apt/lists/* \
         /tmp/* \
-	      /var/tmp/*
+	/var/tmp/*
 	
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
