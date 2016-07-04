@@ -12,7 +12,8 @@ RUN apt-get update && \
     apt-get -y --no-install-recommends install \
         tor \
         wget \
-        ca-certificates
+        ca-certificates \
+        psmisc
 
 COPY Procfile /app/Procfile
 ADD https://github.com/jwilder/forego/releases/download/v0.16.1/forego /usr/local/bin/forego
