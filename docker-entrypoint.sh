@@ -6,7 +6,7 @@ if [[ $DOCKER_HOST == unix://* ]]; then
 	if ! [ -S $socket_file ]; then
 		cat >&2 <<-EOT
 			ERROR: you need to share your Docker host socket with a volume at $socket_file
-			Typically you should run your infiniteproject/tor-service with: \`-v /var/run/docker.sock:$socket_file:ro\`
+			Typically you should run your infiniteproject/torify with: \`-v /var/run/docker.sock:$socket_file:ro\`
 		EOT
 		socketMissing=1
 	fi
