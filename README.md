@@ -1,4 +1,7 @@
-# tor-service
-Tor hidden service for Docker
+# torify
+Tor hidden service "proxy" for Docker containers using docker-gen.
 
-# not working!
+docker run -d --name torify -v /var/run/docker.sock:/tmp/docker.sock:ro infiniteproject/torify 
+docker run -d --name some-nginx -e TORIFY nginx
+
+docker exec -it torify cat /var/lib/tor/nginx/hostname
