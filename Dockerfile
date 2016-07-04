@@ -11,7 +11,8 @@ WORKDIR /app
 
 RUN apt-get update && \
     apt-get -y --no-install-recommends install \
-        tor
+        tor \
+        wget
 
 COPY Procfile /app/Procfile
 ADD https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-linux-amd64.tgz /usr/local/bin/forego
