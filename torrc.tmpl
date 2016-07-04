@@ -1,31 +1,20 @@
 {{ $CurrentContainer := where $ "ID" .Docker.CurrentContainerID | first }}
-
 {{ define "hidden" }}
 	{{ if .Address }}
-		{{/* If we got the containers from swarm and this container's port is published to host, use host IP:PORT */}}
-		{{ if and .Container.Node.ID .Address.HostPort }}
-			# {{ .Container.Node.Name }}/{{ .Container.Name }}
-			HiddenServiceDir /var/lib/tor/{{ .Container.Node.Name }}/{{ .Container.Name }}
-			HiddenServicePort 80 {{ .Container.Node.Address.IP }}:{{ .Address.HostPort }};
-		{{/* If there is no swarm node or the port is not published on host, use container's IP:PORT */}}
-		{{ else if .Network }}
+		{{ if .Network }}
 			# {{ .Container.Name }}
 			HiddenServiceDir /var/lib/tor/{{ .Container.Name }}
 			HiddenServicePort 80 {{ .Network.IP }}:{{ .Address.Port }};
 		{{ end }}
         {{ end }}
 {{ end }}
-
 {{ range $host, $containers := groupByMulti $ "Env.TOR_HIDDEN" "," }}
-
 {{ range $container := $containers }}
 	{{ $addrLen := len $container.Addresses }}
 
 	{{ range $knownNetwork := $CurrentContainer.Networks }}
 		{{ range $containerNetwork := $container.Networks }}
 			{{ if eq $knownNetwork.Name $containerNetwork.Name }}
-				## Can be connect with "{{ $containerNetwork.Name }}" network
-
 				{{/* If only 1 port exposed, use that */}}
 				{{ if eq $addrLen 1 }}
 					{{ $address := index $container.Addresses 0 }}
@@ -40,5 +29,4 @@
 		{{ end }}
 	{{ end }}
 {{ end }}
-
 {{end}}
