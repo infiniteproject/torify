@@ -27,7 +27,7 @@ RUN apt-get clean && \
            /tmp/* \
 	   /var/tmp/*
 
-ADD tor.tmpl /app/tor.tmpl
+ADD torrc.tmpl /app/torrc.tmpl
 	
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
