@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 MAINTAINER Ruggero <infiniteproject@gmail.com>
 
+ENV DOCKER_HOST unix:///tmp/docker.sock
 ENV DOCKER_GEN_VERSION 0.7.3
 ENV DEBIAN_FRONTEND noninteractive
 ENV SERVICE_PORT 80
