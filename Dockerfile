@@ -1,9 +1,8 @@
 FROM ubuntu:latest
 MAINTAINER Ruggero <infiniteproject@gmail.com>
 
+ENV DOCKER_GEN_VERSION 0.7.3
 ENV DEBIAN_FRONTEND noninteractive
-ENV CONTAINER_NAME nginx
-ENV CONTAINER_PORT 80
 ENV SERVICE_PORT 80
 
 VOLUME /var/lib/tor
@@ -11,6 +10,13 @@ VOLUME /var/lib/tor
 RUN apt-get update && \
     apt-get -y --no-install-recommends install \
         tor
+
+ADD https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-linux-amd64.tgz /usr/local/bin/forego
+RUN chmod +x /usr/local/bin/forego
+
+RUN wget https://github.com/jwilder/docker-gen/releases/download/$DOCKER_GEN_VERSION/docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz && \
+    tar -C /usr/local/bin -xvzf docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz && \
+    rm /docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz
 	
 RUN apt-get clean && \
     rm -fr /var/lib/apt/lists/* \
