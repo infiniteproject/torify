@@ -8,3 +8,4 @@ Get hostname:
 ```
 docker exec -it torify cat /var/lib/tor/nginx/hostname
 ```
+This is very basic and untested, feedback appreciated.
