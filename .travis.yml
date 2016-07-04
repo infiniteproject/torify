@@ -2,9 +2,9 @@ sudo: required
 services:
   - docker
 before_install:
-  - docker build -t infiniteproject/tor-service .
+  - docker build -t infiniteproject/torify .
 script:
-  - docker run --name tor-service -v /var/run/docker.sock:/tmp/docker.sock:ro -td infiniteproject/tor-service
-  - docker run --name nginx -td -e TOR_HIDDEN nginx
+  - docker run -d --name torify -v /var/run/docker.sock:/tmp/docker.sock:ro infiniteproject/torify
+  - docker run -d --name nginx -e TORIFY nginx
   - docker ps -a
-  - docker exec -it tor-service cat /etc/tor/torrc
+  - docker exec torify cat /etc/tor/torrc
