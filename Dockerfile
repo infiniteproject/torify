@@ -13,11 +13,7 @@ RUN apt-get update && \
         tor \
         wget \
         ca-certificates \
-        psmisc
-
-COPY Procfile /app/Procfile
-ADD https://github.com/jwilder/forego/releases/download/v0.16.1/forego /usr/local/bin/forego
-RUN chmod +x /usr/local/bin/forego
+        supervisor
 
 RUN wget https://github.com/jwilder/docker-gen/releases/download/$DOCKER_GEN_VERSION/docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz && \
     tar -C /usr/local/bin -xvzf docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz && \
@@ -26,12 +22,13 @@ RUN wget https://github.com/jwilder/docker-gen/releases/download/$DOCKER_GEN_VER
 RUN apt-get clean && \
     rm -fr /var/lib/apt/lists/* \
            /tmp/* \
-	   /var/tmp/*
+	       /var/tmp/*
 
 ADD torrc.tmpl /app/torrc.tmpl
+ADD supervisord.conf /app/supervisord.conf
 	
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["forego", "start", "-r"]
+CMD ["supervisord", "-c", "/app/supervisord.conf"]
