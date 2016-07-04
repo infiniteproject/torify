@@ -13,6 +13,7 @@
 			HiddenServiceDir /var/lib/tor/{{ .Container.Name }}
 			HiddenServicePort 80 {{ .Network.IP }}:{{ .Address.Port }};
 		{{ end }}
+        {{ end }}
 {{ end }}
 
 {{ range $host, $containers := groupByMulti $ "Env.TOR_HIDDEN" "," }}
