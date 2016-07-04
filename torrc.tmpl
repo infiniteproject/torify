@@ -7,7 +7,7 @@ HiddenServicePort 80 {{ .Network.IP }}:{{ .Address.Port }}
 {{ end }}
 {{ end }}
 {{ end }}
-{{ range $host, $containers := groupByMulti $ "Env.TOR_HIDDEN" "," }}
+{{ range $host, $containers := groupByMulti $ "Env.TORIFY" "," }}
 {{ range $container := $containers }}
 {{ $addrLen := len $container.Addresses }}
 {{ range $knownNetwork := $CurrentContainer.Networks }}
