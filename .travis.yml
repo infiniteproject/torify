@@ -4,5 +4,7 @@ services:
 before_install:
   - docker build -t tor-service .
   - docker run --name tor-service -d tor-service
+  - docker run --name nginx -d -e TOR_HIDDEN nginx
 script:
   - docker ps -a
+  - docker exec -it tor-service cat /etc/tor/torrc
