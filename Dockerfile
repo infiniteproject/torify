@@ -7,11 +7,13 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV SERVICE_PORT 80
 
 VOLUME /var/lib/tor
+WORKDIR /app
 
 RUN apt-get update && \
     apt-get -y --no-install-recommends install \
         tor
 
+COPY Procfile /app/Procfile
 ADD https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-linux-amd64.tgz /usr/local/bin/forego
 RUN chmod +x /usr/local/bin/forego
 
