@@ -4,7 +4,7 @@ services:
 before_install:
   - docker build -t infiniteproject/tor-service .
 script:
-  - docker run --name tor-service -v /var/run/docker.sock:/tmp/docker.sock:ro -td infiniteproject/tor-service
-  - docker run --name nginx -td -e TOR_HIDDEN=80 nginx
+  - docker run --name tor-service -v /var/run/docker.sock:/tmp/docker.sock:ro -t infiniteproject/tor-service
+  - docker run --name nginx -t -e TOR_HIDDEN=true nginx
   - docker ps -a
   - docker exec -it tor-service cat /etc/tor/torrc
