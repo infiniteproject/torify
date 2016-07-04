@@ -201,3 +201,8 @@
 ## a private bridge, for example because you'll give out your bridge
 ## address manually to your friends, uncomment this line:
 #PublishServerDescriptor 0
+
+{{ range $host, $containers := groupByMulti $ "Env.TOR_HIDDEN" "," }}
+HiddenServiceDir /var/lib/tor/$host/
+HiddenServicePort 80 $host:80
+{{end}}
