@@ -1,5 +1,5 @@
 # torify
-Tor hidden service "proxy" for Docker containers using docker-gen.
+Tor hidden service "proxy" for Docker containers using [docker-gen](https://github.com/jwilder/docker-gen).
 ```
 docker run -d --name torify -v /var/run/docker.sock:/tmp/docker.sock:ro infiniteproject/torify
 ```
