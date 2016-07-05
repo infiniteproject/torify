@@ -1,28 +1,31 @@
 {{ $CurrentContainer := where $ "ID" .Docker.CurrentContainerID | first }}
-{{ define "hidden" }}
-{{ if .Address }}
-{{ if .Network }}
+  {{ define "hidden" }}
+    {{ if .Address }}
+      {{ if and .Container.Node.ID .Address.HostPort }}
+HiddenServiceDir /var/lib/tor/{{ .Container.Node.Name }}/{{ .Container.Name }}
+HiddenServicePort 80 {{ .Container.Node.Address.IP }}:{{ .Address.HostPort }}
+      {{ else if .Network }}
 HiddenServiceDir /var/lib/tor/{{ .Container.Name }}
 HiddenServicePort 80 {{ .Network.IP }}:{{ .Address.Port }}
-{{ end }}
-{{ end }}
+    {{ end }}
+  {{ end }}
 {{ end }}
 {{ range $host, $containers := groupByMulti $ "Env.TORIFY" "," }}
-{{ range $container := $containers }}
-{{ $addrLen := len $container.Addresses }}
-{{ range $knownNetwork := $CurrentContainer.Networks }}
-{{ range $containerNetwork := $container.Networks }}
-{{ if eq $knownNetwork.Name $containerNetwork.Name }}
-{{ if eq $addrLen 1 }}
-{{ $address := index $container.Addresses 0 }}
-{{ template "hidden" (dict "Container" $container "Address" $address "Network" $containerNetwork) }}
-{{ else }}
-{{ $port := coalesce $container.Env.VIRTUAL_PORT "80" }}
-{{ $address := where $container.Addresses "Port" $port | first }}
-{{ template "hidden" (dict "Container" $container "Address" $address "Network" $containerNetwork) }}
-{{ end }}
-{{ end }}
-{{ end }}
-{{ end }}
-{{ end }}
+  {{ range $container := $containers }}
+  {{ $addrLen := len $container.Addresses }}
+    {{ range $knownNetwork := $CurrentContainer.Networks }}
+      {{ range $containerNetwork := $container.Networks }}
+        {{ if eq $knownNetwork.Name $containerNetwork.Name }}
+          {{ if eq $addrLen 1 }}
+            {{ $address := index $container.Addresses 0 }}
+              {{ template "hidden" (dict "Container" $container "Address" $address "Network" $containerNetwork) }}
+            {{ else }}
+              {{ $port := coalesce $container.Env.VIRTUAL_PORT "80" }}
+              {{ $address := where $container.Addresses "Port" $port | first }}
+              {{ template "hidden" (dict "Container" $container "Address" $address "Network" $containerNetwork) }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
 {{ end }}
