@@ -24,9 +24,8 @@ RUN apt-get clean && \
            /tmp/* \
            /var/tmp/*
 
-ADD torrc.tmpl /app/torrc.tmpl
-ADD supervisord.conf /app/supervisord.conf
-	
+COPY torrc.tmpl /app/torrc.tmpl
+COPY supervisord.conf /app/supervisord.conf
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
