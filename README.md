@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/infiniteproject/torify.svg?branch=master)](https://travis-ci.org/infiniteproject/torify)
 # torify
 Tor hidden service "proxy" for Docker containers using [docker-gen](https://github.com/jwilder/docker-gen).
 ```
