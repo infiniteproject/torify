@@ -15,4 +15,4 @@ Get hostname:
 ```
 cat ./torify/web/hostname
 ```
-This is very basic and untested, feedback appreciated. Tor connects to target container's first exposed port, otherwise to port 80 unless specified with VIRTUAL_PORT env variable. Data is stored in /var/lib/tor/<container-name> so you can persist it with -v tor:/var/lib/tor.
+This is very basic and untested, feedback appreciated. Tor connects to target container's first exposed port, otherwise to port 80 unless specified with VIRTUAL_PORT env variable. Data is stored in /var/lib/tor/<container-name> so you can persist it with -v.
