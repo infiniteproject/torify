@@ -2,7 +2,7 @@
 # torify
 Tor hidden service "proxy" for Docker containers using [docker-gen](https://github.com/jwilder/docker-gen).
 ```
-docker run -d --name torify -v /var/run/docker.sock:/tmp/docker.sock:ro infiniteproject/torify
+docker run -d -v /var/run/docker.sock:/tmp/docker.sock:ro infiniteproject/torify
 ```
 Run container you want to create a hidden service for with -e TORIFY env variable:
 ```
