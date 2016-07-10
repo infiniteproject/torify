@@ -10,7 +10,8 @@ HiddenServicePort 80 {{ .Network.IP }}:{{ .Address.Port }}
     {{ end }}
   {{ end }}
 {{ end }}
-{{ range $container := groupByMulti $ "Env.TORIFY" "," }}
+{{ range $host, $containers := groupByMulti $ "Env.TORIFY" "," }}
+{{ range $container := $containers }}
 {{ $addrLen := len $container.Addresses }}
   {{ range $knownNetwork := $CurrentContainer.Networks }}
     {{ range $containerNetwork := $container.Networks }}
