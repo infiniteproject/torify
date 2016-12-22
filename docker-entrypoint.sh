@@ -12,7 +12,7 @@ if [[ $DOCKER_HOST == unix://* ]]; then
 	fi
 fi
 
-if [ "$socketMissing" = 1 -a "$1" = forego -a "$2" = start -a "$3" = '-r' ]; then
+if [ "$socketMissing" = 1]; then
 	exit 1
 fi
 
